@@ -240,7 +240,7 @@ class InvoiceController extends Controller
                             'amount' => $request['deposit'],
                             'charge_date' => $chargelist['charge_date'],
                             'status' => "Billed",
-                            'description_charge' => $chargelist['description_charge'],
+                            'description_charge' => "Deposit",
                         ]);
                     }
 

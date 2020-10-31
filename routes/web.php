@@ -78,3 +78,4 @@ Route::post('/servicestore', [App\Http\Controllers\ServiceController::class, 'se
 Route::get('/servicelandlordlist', [App\Http\Controllers\ServiceController::class, 'servicelandlordlist'])->name('servicelandlordlist');
 Route::post('/servicecstorecharge', [App\Http\Controllers\ServiceController::class, 'servicecstorecharge'])->name('servicecstorecharge');
 Route::post('/servicechangestatus', [App\Http\Controllers\ServiceController::class, 'servicechangestatus'])->name('servicechangestatus');
+Route::get('/servicepage', [App\Http\Controllers\ServiceController::class, 'servicepage'])->name('servicepage');

@@ -74,6 +74,11 @@ class ServiceController extends Controller
             ->get();
         return view('service.servicecreate', compact('servicelist'));
     }
+    function servicepage()
+    {
+       
+        return view('service.servicepage');
+    }
 
     public function servicestore(Request $request)
     {
