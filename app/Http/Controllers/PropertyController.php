@@ -60,6 +60,7 @@ class PropertyController extends Controller
             ->join('users', 'users.id', '=', 'tenancy_request.renter_id')
             ->join('houses', 'houses.house_id', '=', 'tenancy_request.house_id')
             ->where('tenancy_request.landlord_id', Auth::user()->id)
+            ->orderBy('tenancy_request.request_id', 'DESC')
             ->get();
 
         // dd( $requestpropertylist);

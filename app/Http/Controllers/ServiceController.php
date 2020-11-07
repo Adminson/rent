@@ -31,6 +31,7 @@ class ServiceController extends Controller
             ->join('users', 'users.id', '=', 'tenants.renter_id')
             ->join('houses', 'houses.house_id', '=', 'tenants.house_id')
             ->where('tenants.renter_id', Auth::user()->id)
+            ->where('tenants.status','=', "Active")
             ->get();
             // dd($myhouse);
         return view('service.servicelist', compact('servicelist','myhouse'));

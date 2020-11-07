@@ -78,13 +78,13 @@
                             <li class="nav-item"><a href="{{route('listhome')}}" class="nav-link">House</a></li>
                             <li class="nav-item"><a href="{{route('requestpropertylist')}}" class="nav-link">Request</a></li>
                             <li class="nav-item"><a href="{{route('invoicelist')}}" class="nav-link">Invoice</a></li>
-                            <li class="nav-item"><a href="{{route('servicelandlordlist')}}" class="nav-link">Service</a></li>
+                            <li class="nav-item"><a href="{{route('servicelandlordlist')}}" class="nav-link">Report</a></li>
                             @else
                             <br />
                             <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">My House</a></li>
                             <!-- <li class="nav-item"><a href="{{route('property')}}" class="nav-link">My House</a> </li> -->
                             <li class="nav-item"><a href="{{route('invoicetenantlist')}}" class="nav-link">Invoice</a></li>
-                            <li class="nav-item"><a href="{{route('servicelist')}}" class="nav-link">Service</a></li>
+                            <li class="nav-item"><a href="{{route('servicelist')}}" class="nav-link">Report</a></li>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\House;
+use App\Models\Reminder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -35,20 +36,10 @@ class HomeController extends Controller
             ->join('users', 'users.id', '=', 'tenants.renter_id')
             ->join('houses', 'houses.house_id', '=', 'tenants.house_id')
             ->where('tenants.renter_id', Auth::user()->id)
+            ->orderBy('tenants.tenant_id', 'desc')
             ->get();
 
         return response()->json($myhouse, 201);
-    }
-
-    public function getreminder()
-    {
-        $myreminder = DB::table('reminder')
-            ->join('invoices', 'invoices.invoice_id', '=', 'reminder.invoice_id')
-            ->join('houses', 'houses.house_id', '=', 'invoices.house_id')
-            ->where('reminder.renter_id', Auth::user()->id)
-            ->get();
-
-        return response()->json($myreminder, 201);
     }
 
     function list() {
@@ -67,7 +58,7 @@ class HomeController extends Controller
         foreach ($housephoto as $k => $photo) {
             array_push($housephotolink, "/images/" . $photo);
         }
-        if(empty($housephotolink)){
+        if (empty($housephotolink)) {
             array_push($housephotolink, "/images/default.png");
         }
 
@@ -79,9 +70,9 @@ class HomeController extends Controller
         $savedfacilities = $houseView->facilities;
 
         $saveimages = DB::table('houses')
-        ->join('photos', 'photos.house_id', '=', 'houses.house_id')
-        ->where('houses.house_id', $id)
-        ->get();
+            ->join('photos', 'photos.house_id', '=', 'houses.house_id')
+            ->where('houses.house_id', $id)
+            ->get();
         return view('house.edit', compact('houseView', 'savedfacilities', 'saveimages'));
     }
 
@@ -143,5 +134,27 @@ class HomeController extends Controller
         $house->save();
 
         return response()->json($house, 201);
+    }
+
+    public function getreminder()
+    {
+        $myreminder = DB::table('reminder')
+            ->select('invoices.*', 'houses.*', 'reminder.*', 'reminder.status as reminder_status')
+            ->join('invoices', 'invoices.invoice_id', '=', 'reminder.invoice_id')
+            ->join('houses', 'houses.house_id', '=', 'invoices.house_id')
+            ->where('reminder.renter_id', Auth::user()->id)
+            ->where('reminder.status','=', null)
+            ->get();
+
+        return response()->json($myreminder, 201);
+    }
+    public function deletereminder(Request $request)
+    {
+        // dd($request->reminder_id);
+        $request = Reminder::find($request->reminder_id);
+        $request->status = "Removed";
+        $request->save();
+
+        return response()->json($request, 201);
     }
 }
